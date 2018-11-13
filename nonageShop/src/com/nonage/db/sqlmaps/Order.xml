@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+ 
+ 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+<sqlMap namespace="Order" >
+	
+	<typeAlias alias="str" type="java.lang.String"/>
+	<typeAlias alias="int" type="java.lang.Integer"/>
+	<typeAlias alias="order" type="com.nonage.dto.OrderVO"/>
+	<typeAlias alias="map" type="java.util.Map"/>
+		
+	<select id="getOseqNextValue" resultClass="int">
+		select orders_seq.nextval from dual
+	</select>
+	
+	<insert id="insertOrder" parameterClass="map" >
+		insert into orders(oseq, id) values(#oseq#, #id#)
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterClass="order" >
+		insert into order_detail(odseq, oseq,pseq, quantity)
+		 values(order_detail_seq.nextval,#oseq#, #pseq#, #quantity#)
+	</insert>	
+	
+	<select id="selectSeqOrderIng" resultClass="int">
+		select distinct oseq 
+		from order_view
+		where id=#id# and result='1'
+		order by oseq desc
+	</select>
+	
+	<select id="selectSeqOrderAll" resultClass="int">
+		select distinct oseq 
+		from order_view
+		where id=#id#
+		order by oseq desc
+	</select>
+	
+	<select id="listOrderById" parameterClass="map" resultClass="order">
+		select * 
+		from order_view 
+		where id=#id# and result like '%'||#result#||'%' and oseq=#oseq#
+	</select>
+</sqlMap>
+
+
+
+
+

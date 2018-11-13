@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<decorators defaultdir="/decorator">	
+	<decorator name="main" page="page_decorator.jsp">
+		<pattern>/*.do</pattern>
+	</decorator>
+	<decorator name="admin" page="admin_decorator.jsp">
+		<pattern>/admin/*.do</pattern>
+	</decorator>
+	
+
+
+
+	<excludes>
+		<pattern>/findZipNum.do*</pattern>
+		<pattern>/idCheckForm.do*</pattern>	
+		<pattern>/admin/login*</pattern>	
+	</excludes>
+
+</decorators>
+
+
+
+
